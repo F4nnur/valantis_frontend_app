@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { $api } from 'shared/api/api';
 import { AxiosError } from 'axios';
 
-interface IdsProps {
+interface GoodsProps {
     action: string;
     params?: object;
 }
@@ -12,9 +12,9 @@ interface KnownError {
     code: number | undefined;
 }
 
-export const IdsService = createAsyncThunk(
-    'get_ids',
-    async (data: IdsProps, thunkAPI) => {
+export const GoodsService = createAsyncThunk(
+    'get_goods',
+    async (data: GoodsProps, thunkAPI) => {
         try {
             const response = await $api.post('', data);
 

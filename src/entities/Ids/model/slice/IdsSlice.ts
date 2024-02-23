@@ -9,7 +9,7 @@ const initialState: IdsSchema = {
 
 };
 
-export const userSlice = createSlice({
+export const IdsSlice = createSlice({
     name: 'ids',
     initialState,
     reducers: {},
@@ -31,5 +31,5 @@ export const userSlice = createSlice({
     },
 });
 
-export const { actions: IdsActions } = userSlice;
-export const { reducer: IdsReducer } = userSlice;
+export const { actions: IdsActions } = IdsSlice;
+export const { reducer: IdsReducer } = IdsSlice;
