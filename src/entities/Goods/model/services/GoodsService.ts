@@ -3,6 +3,7 @@ import { $api } from 'shared/api/api';
 import { AxiosError } from 'axios';
 import { Good } from '../types/GoodsSchema';
 import { IdsService } from '../../../Ids/model/services/IdsService';
+import { IdsActions } from '../../../Ids/model/slice/IdsSlice';
 
 interface Goods {
     action: string;

@@ -23,7 +23,7 @@ const GoodsList: React.FC<GoodsListProps> = (props) => {
             (async () => {
                 const result = await dispatch(GoodsService({ elems: goodsIds, limit, offset }));
                 if (result?.meta?.requestStatus === 'rejected' || !result) {
-                    setTimeout(() => dispatch(GoodsService({ elems: goodsIds, limit, offset })), 200);
+                    await dispatch(GoodsService({ elems: goodsIds, limit, offset }));
                 }
             })();
         }

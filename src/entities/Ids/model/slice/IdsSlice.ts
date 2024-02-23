@@ -6,13 +6,27 @@ const initialState: IdsSchema = {
     result: undefined,
     error: undefined,
     isLoading: false,
+    offset: 1,
+    limit: 50,
+    currentPage: 1,
 
 };
 
 export const IdsSlice = createSlice({
     name: 'ids',
     initialState,
-    reducers: {},
+    reducers: {
+        setOffset: (state, action) => {
+            state.offset = action.payload;
+        },
+
+        setLimit: (state, action) => {
+            state.limit = action.payload;
+        },
+        setCurrentPage: (state, action) => {
+            state.currentPage = action.payload;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(IdsService.pending, (state) => {
