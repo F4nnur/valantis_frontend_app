@@ -1,42 +1,45 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { GoodsService } from 'entities/Goods/model/services/GoodsService';
-import { IdsService } from 'entities/Ids/model/services/IdsService';
 import { getGoods } from 'entities/Goods/model/selectors/getGoods/getGoods';
 import cls from './GoodsList.module.scss';
 import Text from '../../../shared/UI/Text/Text';
+import Loader from '../../../shared/UI/Loader/Loader';
 
 interface GoodsListProps {
-    data?: string[]
+    data?: string[];
+    offset?: number;
+    limit?: number;
 }
 const GoodsList: React.FC<GoodsListProps> = (props) => {
-    const { data } = props;
+    const { data, offset, limit } = props;
     const dispatch = useAppDispatch();
     const goods = useSelector(getGoods);
-    console.log(goods);
 
     useEffect(() => {
         if (data) {
             const goodsIds = { action: 'get_items', params: { ids: data } };
             (async () => {
-                const result = await dispatch(GoodsService(goodsIds));
-                if (result.meta.requestStatus === 'rejected') {
-                    dispatch(IdsService(goodsIds));
+                const result = await dispatch(GoodsService({ elems: goodsIds, limit, offset }));
+                if (result?.meta?.requestStatus === 'rejected' || !result) {
+                    setTimeout(() => dispatch(GoodsService({ elems: goodsIds, limit, offset })), 200);
                 }
             })();
         }
-    }, [dispatch, data]);
+    }, [dispatch, offset, limit, data]);
     return (
         <div className={cls.GoodsList}>
-            {goods && goods.map((elem, index) => (
-                <div className={cls.ListItem}>
-                    <Text text={`ID: ${elem.id}`} />
-                    <Text text={`Название: ${elem.product}`} />
-                    <Text text={`Цена: ${elem.price}`} />
-                    <Text text={`Бренд: ${elem.brand}`} />
-                </div>
-            ))}
+            <Suspense fallback={<Loader />}>
+                {goods && goods.map((elem, index) => (
+                    <div className={cls.ListItem}>
+                        <Text text={`ID: ${elem.id}`} />
+                        <Text text={`Название: ${elem.product}`} />
+                        <Text text={`Цена: ${elem.price}`} />
+                        <Text text={`Бренд: ${elem.brand}`} />
+                    </div>
+                ))}
+            </Suspense>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-interface Good {
+export interface Good {
     brand: null | string;
     id: string;
     price: number;

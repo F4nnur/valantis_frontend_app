@@ -1,5 +1,5 @@
 import React, {
-    memo, useCallback, useEffect, useState,
+    memo, Suspense, useCallback, useEffect, useState,
 } from 'react';
 import { useSelector } from 'react-redux';
 import { getIds } from 'entities/Ids/model/selectors/getIds';
@@ -8,6 +8,7 @@ import { IdsService } from 'entities/Ids/model/services/IdsService';
 import { Pagination } from 'widgets/Pagination';
 import { GoodsList } from 'widgets/GoodsList';
 import cls from './MainPage.module.scss';
+import Loader from '../../../shared/UI/Loader/Loader';
 
 const MainPage = memo(() => {
     const dispatch = useAppDispatch();
@@ -20,8 +21,8 @@ const MainPage = memo(() => {
         const data = { action: 'get_ids', params: { offset, limit } };
         (async () => {
             const result = await dispatch(IdsService(data));
-            if (result.meta.requestStatus === 'rejected') {
-                dispatch(IdsService(data));
+            if (result?.meta?.requestStatus === 'rejected') {
+                setTimeout(() => dispatch(IdsService(data)), 150);
             }
         })();
     }, [dispatch, currentPage]);
@@ -32,10 +33,9 @@ const MainPage = memo(() => {
 
     return (
         <div className={cls.MainPage}>
-            {/* {ids && ids.map((id) => ( */}
-            {/*    <div key={id}>{id}</div> */}
-            {/* ))} */}
-            <GoodsList data={ids} />
+            <Suspense fallback={<Loader />}>
+                <GoodsList data={ids} offset={(currentPage - 1) * limit} limit={limit} />
+            </Suspense>
             <Pagination
                 currentPage={currentPage}
                 onPageChange={handlePageChange}

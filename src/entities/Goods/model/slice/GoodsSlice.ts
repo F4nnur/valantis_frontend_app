@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { GoodsSchema } from '../types/GoodsSchema';
+import { Good, GoodsSchema } from '../types/GoodsSchema';
 import { GoodsService } from '../services/GoodsService';
+import loader from '../../../../shared/UI/Loader/Loader';
 
 const initialState: GoodsSchema = {
     goods: undefined,
@@ -20,13 +21,18 @@ export const GoodsSlice = createSlice({
             })
             .addCase(GoodsService.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const uniqueIds = new Set(action.payload.result as string[]);
-                state.goods = Array.from(uniqueIds).map((item: any) => ({
-                    id: item.id,
-                    brand: item.brand,
-                    price: item.price,
-                    product: item.product,
-                }));
+
+                const uniqueIds = new Set();
+
+                const uniqueGoods = action.payload.result.filter((elem: Good) => {
+                    if (uniqueIds.has(elem.id)) {
+                        return false;
+                    }
+                    uniqueIds.add(elem.id);
+                    return true;
+                });
+
+                state.goods = uniqueGoods;
             })
             .addCase(GoodsService.rejected, (state, action) => {
                 state.isLoading = false;

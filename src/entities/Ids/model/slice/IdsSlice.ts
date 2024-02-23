@@ -21,8 +21,7 @@ export const IdsSlice = createSlice({
             })
             .addCase(IdsService.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const uniqueIds = new Set(action.payload.result as string[]);
-                state.result = Array.from(uniqueIds);
+                state.result = action.payload.result;
             })
             .addCase(IdsService.rejected, (state, action) => {
                 state.isLoading = false;
