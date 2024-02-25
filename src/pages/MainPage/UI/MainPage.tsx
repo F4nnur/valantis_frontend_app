@@ -13,7 +13,7 @@ import { IdsActions } from 'entities/Ids/model/slice/IdsSlice';
 import { getCurrentPage } from 'entities/Ids/model/selectors/getCurrentPage/getCurrentPage';
 import cls from './MainPage.module.scss';
 
-const MainPage = memo(() => {
+const MainPage = () => {
     const dispatch = useAppDispatch();
     const ids = useSelector(getIds);
     const offset = useSelector(getOffset);
@@ -21,30 +21,23 @@ const MainPage = memo(() => {
     const currentPage = useSelector(getCurrentPage);
 
     useEffect(() => {
-        (async () => {
-            dispatch(IdsActions.setOffset((currentPage - 1) * limit));
-            const data = { action: 'get_ids', params: { offset, limit } };
-            const result = await dispatch(IdsService(data));
-            if (result?.meta?.requestStatus === 'rejected') {
-                await dispatch(IdsService(data));
-            }
-        })();
+        const data = { action: 'get_ids', params: { offset, limit } };
+        dispatch(IdsService(data));
     }, [dispatch, limit, offset, currentPage]);
 
     const handlePageChange = useCallback((page: number) => {
         dispatch(IdsActions.setCurrentPage(page));
-        dispatch(IdsActions.setLimit(50));
     }, [dispatch]);
 
     return (
         <div className={cls.MainPage}>
-            <GoodsList data={ids} offset={(currentPage - 1) * limit} limit={limit} />
+            <GoodsList data={ids} offset={offset} limit={limit} />
             <Pagination
                 currentPage={currentPage}
                 onPageChange={handlePageChange}
             />
         </div>
     );
-});
+};
 
 export default MainPage;

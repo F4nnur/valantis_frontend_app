@@ -20,14 +20,10 @@ const GoodsList: React.FC<GoodsListProps> = (props) => {
     useEffect(() => {
         if (data) {
             const goodsIds = { action: 'get_items', params: { ids: data } };
-            (async () => {
-                const result = await dispatch(GoodsService({ elems: goodsIds, limit, offset }));
-                if (result?.meta?.requestStatus === 'rejected' || !result) {
-                    await dispatch(GoodsService({ elems: goodsIds, limit, offset }));
-                }
-            })();
+            dispatch(GoodsService({ elems: goodsIds }));
         }
     }, [dispatch, offset, limit, data]);
+    console.log(goods);
     return (
         <div className={cls.GoodsList}>
             <Suspense fallback={<Loader />}>

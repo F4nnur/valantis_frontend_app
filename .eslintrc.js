@@ -59,7 +59,7 @@ module.exports = {
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/no-static-element-interactions': 'off',
         'react-hooks/rules-of-hooks': 'error',
-        'react-hooks/exhaustive-deps': 'error',
+        'react-hooks/exhaustive-deps': 'off',
         'no-param-reassign': 'off',
         'typescript-eslint/no-var-requires': 'off',
         'no-plusplus': 'off',

@@ -6,7 +6,7 @@ const initialState: IdsSchema = {
     result: undefined,
     error: undefined,
     isLoading: false,
-    offset: 1,
+    offset: 0,
     limit: 50,
     currentPage: 1,
 
