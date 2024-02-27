@@ -1,7 +1,7 @@
 {
   "name": "valantis_frontend_app",
   "version": "0.1.0",
-  "homepage": "https://f4nnur.github.io/valantis_frontend_app/",
+  "homepage": "http://f4nnur.github.io/valantis_frontend_app/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
