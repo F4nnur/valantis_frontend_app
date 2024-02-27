@@ -9,7 +9,7 @@ export enum AppRoutes {
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
-    [AppRoutes.MAIN]: '/',
+    [AppRoutes.MAIN]: '/valantis_frontend_app',
     // must be last
     [AppRoutes.PAGE_NOT_FOUND]: '*',
 };
