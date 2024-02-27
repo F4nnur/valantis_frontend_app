@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import * as crypto from 'crypto-js';
 

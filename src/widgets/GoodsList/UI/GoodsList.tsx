@@ -26,7 +26,7 @@ const GoodsList: React.FC<GoodsListProps> = (props) => {
     return (
         <div className={cls.GoodsList}>
             <Suspense fallback={<Loader />}>
-                {goods && goods.map((elem, index) => (
+                {goods && goods.map((elem) => (
                     <div className={cls.ListItem} key={elem.id}>
                         <Text text={`ID: ${elem.id}`} />
                         <Text text={`Название: ${elem.product}`} />
