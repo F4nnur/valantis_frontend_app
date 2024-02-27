@@ -16,6 +16,9 @@ export const IdsSlice = createSlice({
     name: 'ids',
     initialState,
     reducers: {
+        setResult: (state, action) => {
+            state.result = action.payload.result;
+        },
         setOffset: (state, action) => {
             state.offset = action.payload;
         },

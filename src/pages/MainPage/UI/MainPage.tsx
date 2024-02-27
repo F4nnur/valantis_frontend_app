@@ -12,6 +12,7 @@ import { getLimit } from 'entities/Ids/model/selectors/getLimit/getLimit';
 import { IdsActions } from 'entities/Ids/model/slice/IdsSlice';
 import { getCurrentPage } from 'entities/Ids/model/selectors/getCurrentPage/getCurrentPage';
 import cls from './MainPage.module.scss';
+import Filter from '../../../widgets/Filter/Filter';
 
 const MainPage = () => {
     const dispatch = useAppDispatch();
@@ -31,6 +32,7 @@ const MainPage = () => {
 
     return (
         <div className={cls.MainPage}>
+            <Filter offset={offset} limit={limit} />
             <GoodsList data={ids} offset={offset} limit={limit} />
             <Pagination
                 currentPage={currentPage}
