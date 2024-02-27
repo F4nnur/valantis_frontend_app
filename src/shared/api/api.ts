@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import axiosRetry from 'axios-retry';
 import * as crypto from 'crypto-js';
 
@@ -10,7 +10,6 @@ const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
 const day = currentDate.getDate().toString().padStart(2, '0');
 
 const password = crypto.MD5(`Valantis_${year}${month}${day}`).toString();
-// const password = crypto.MD5('Valantis_20240226').toString();
 export const $api = axios.create({
     baseURL: baseUrl,
     headers: {

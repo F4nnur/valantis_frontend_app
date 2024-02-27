@@ -23,12 +23,11 @@ const GoodsList: React.FC<GoodsListProps> = (props) => {
             dispatch(GoodsService({ elems: goodsIds }));
         }
     }, [dispatch, offset, limit, data]);
-    console.log(goods);
     return (
         <div className={cls.GoodsList}>
             <Suspense fallback={<Loader />}>
                 {goods && goods.map((elem, index) => (
-                    <div className={cls.ListItem}>
+                    <div className={cls.ListItem} key={elem.id}>
                         <Text text={`ID: ${elem.id}`} />
                         <Text text={`Название: ${elem.product}`} />
                         <Text text={`Цена: ${elem.price}`} />

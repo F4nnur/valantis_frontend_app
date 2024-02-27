@@ -1,6 +1,4 @@
-import React, {
-    memo, Suspense, useCallback, useEffect, useState,
-} from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { IdsService } from 'entities/Ids/model/services/IdsService';
