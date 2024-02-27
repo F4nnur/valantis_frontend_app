@@ -27,24 +27,23 @@ const Filter = (props: FilterProps) => {
     const result = useSelector(getFields);
     const field = useSelector(getSelectedField);
 
-    // useEffect(() => {
-    //     dispatch(FieldService({ action: 'get_fields', params: { field, offset, limit } }));
-    // }, [result]);
+    useEffect(() => {
+        dispatch(FieldService({ action: 'get_fields', params: { field, offset, limit } }));
+    }, [dispatch, limit, offset]);
 
     const handleCriteriaSelect = useCallback((elem: string) => {
         dispatch(FieldActions.setField(elem));
         dispatch(FieldService({ action: 'get_fields', params: { field: elem, offset, limit } }));
     }, [dispatch, offset, limit]);
+
     const handleElemSelect = useCallback((elem: string | number) => {
-        const fieldValue = typeof elem === 'number' ? elem.toFixed(1) : elem;
+        const fieldValue = typeof elem === 'number' ? Number(elem) : elem;
         dispatch(FilterService({ action: 'filter', params: { [String(field)]: fieldValue } }));
-        console.log(1);
     }, [dispatch, field]);
     return (
         <div className={clsx(cls.Filter, {}, [className])}>
             <Select title="Выберите критерий фильтрации" optionsList={criteriaList} handleSelectedOption={handleCriteriaSelect} />
             <Select title="Выберите поле" optionsList={result} handleSelectedOption={handleElemSelect} />
-            <Button>Отфильтровать</Button>
         </div>
     );
 };
