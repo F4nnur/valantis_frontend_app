@@ -2,7 +2,7 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import * as crypto from 'crypto-js';
 
-const baseUrl = 'http://api.valantis.store:40000';
+const baseUrl = 'https://api.valantis.store:41000/';
 const currentDate = new Date();
 
 const year = currentDate.getFullYear();

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from 'react';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 import Select from 'shared/UI/Select/Select';
-import Button from 'shared/UI/Button/Button';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { FieldService } from 'entities/Field/model/service/FieldService';
 import { getFields } from 'entities/Field';
@@ -37,8 +36,7 @@ const Filter = (props: FilterProps) => {
     }, [dispatch, offset, limit]);
 
     const handleElemSelect = useCallback((elem: string | number) => {
-        const fieldValue = typeof elem === 'number' ? Number(elem) : elem;
-        dispatch(FilterService({ action: 'filter', params: { [String(field)]: fieldValue } }));
+        dispatch(FilterService({ action: 'filter', params: { [String(field)]: Number.isNaN(+elem) ? elem : +elem } }));
     }, [dispatch, field]);
     return (
         <div className={clsx(cls.Filter, {}, [className])}>

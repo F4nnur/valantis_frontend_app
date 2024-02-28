@@ -22,7 +22,7 @@ const Select = (props: SelectProps) => {
                     }
                     // eslint-disable-next-line consistent-return
                     return (
-                        <option key={elem} value={elem}>{elem}</option>
+                        <option value={elem}>{elem}</option>
                     );
                 })}
             </select>
